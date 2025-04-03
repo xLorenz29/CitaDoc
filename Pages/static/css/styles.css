@@ -1,0 +1,9 @@
+.banner-container {
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    margin: 0 auto; /* Centra el carrusel si es necesario */
+}
+
+.carousel-inner img {
+    height: 400px; /* Ajusta la altura según lo que necesites */
+    object-fit: cover; /* Evita que la imagen se distorsione */
+}
