@@ -1,38 +1,42 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from .forms import LoginForm
 from .models import Paciente
-from django.contrib.auth.hashers import check_password
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth import login as auth_login
-
 # Create your views here.
 
 def home(request):
     return render(request, 'home.html')
 
 def nosotros(request):
-    return render(request, 'nosotros.html')
-
-def staff(request):
-    return render(request, 'staff.html')
-
-def especialidades(request):
-    return render(request, 'especialidades.html')
-
+    return render(request, 'Fnosotros/nosotros.html')
 
 def misionVision(request):
-    return render(request, 'misionVision.html')
+    return render(request, 'Fnosotros/misionVision.html')
 
 def historia(request):
-    return render(request, 'historia.html')
+    return render(request, 'Fnosotros/historia.html')
+
+def staff(request):
+    return render(request, 'Fstaff/staff.html')
+
+def especialidades(request):
+    return render(request, 'Fespecialidades/especialidades.html')
 
 
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    # Dado que para ingresar a esta vista, el usuario ya tiene que haber iniciado sesión,
+    paciente_id = request.session.get('paciente_id')  # Obtenemos el id del paciente
+
+    if not paciente_id:
+        return redirect('loginReserva')  # En caso no haya sesión, lo mandamos al login
+    
+    # Pero si hay sesion, obtenemos el paciente activo
+    PacienteActivo = Paciente.objects.get(id=paciente_id)
+    
+    return render(request, 'dashboard.html', {'PacienteActivo': PacienteActivo})
 
 def loginReserva(request):
     if request.method == 'POST':
@@ -44,29 +48,36 @@ def loginReserva(request):
             try:
                 paciente = Paciente.objects.get(dni=numero_documento)
                 
-                # Caso 1: Contraseña hasheada
+                # Verificamos si la contraseña está hasheada o en texto plano
                 if paciente.contraseña.startswith('pbkdf2_sha256$'):
+                    # Si está hasheada, validamos que exista en la BD con check_password
                     if check_password(contraseña, paciente.contraseña):
                         request.session['paciente_id'] = paciente.id
                         return redirect('dashboard')
+                    else:
+                        messages.error(request, "Credenciales incorrectas")
+                        return redirect('loginReserva')
                 
-                # Caso 2: Contraseña en texto plano (solo durante transición)
                 elif contraseña == paciente.contraseña:
-                    # Hasheamos la contraseña para futuros logins
+                    # Si está en texto plano, la hashamos y guardamos
                     paciente.contraseña = make_password(contraseña)
                     paciente.save()
                     request.session['paciente_id'] = paciente.id
                     return redirect('dashboard')
-                
-                return HttpResponse("Credenciales incorrectas")
-                    
+                else:
+                    messages.error(request, "Credenciales incorrectas")
+                    return redirect('loginReserva')
             except Paciente.DoesNotExist:
-                return HttpResponse("Paciente no encontrado")
+                messages.error(request, "El número de documento no existe")
+                return redirect('loginReserva')
     
     else:
         form = LoginForm()
+
     return render(request, 'loginReserva.html', {'form': form})
 
+def crearCuenta(request):
+    return render(request, 'crearCuenta.html')
 
 '''def loginReserva(request):
     if request.method == 'POST':
@@ -97,10 +108,3 @@ def loginReserva(request):
         form = AuthenticationForm()
     
     return render(request, 'loginReserva.html', {'form': form})'''
-
-
-
-def nuevologin(request):
-    
-    return render(request, 'nuevologin.html')
-    

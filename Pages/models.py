@@ -30,7 +30,7 @@ class Paciente(models.Model):
     fecha_nacimiento = models.DateField()
     SEXO_CHOICES = [('Masculino', 'Masculino'), ('Femenino', 'Femenino')]
     sexo = models.CharField(max_length=10, choices=SEXO_CHOICES)
-    telefono = models.CharField(max_length=15, null=True, blank=True)
+    telefono = models.CharField(max_length=9, null=True, blank=True)
     correo_electronico = models.EmailField(max_length=100, unique=True, null=True, blank=True)
     direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE)
     contraseña = models.CharField(max_length=255)  # Añadido para la contraseña
