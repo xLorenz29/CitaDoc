@@ -1,0 +1,152 @@
+/* --------------------------------------
+  Barra superior (Topbar)
+-------------------------------------- */
+.topbar {
+  background: #f8f9fa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar-logo {
+  width: 100%;
+  max-width: 150px;
+}
+
+/* --------------------------------------
+  Barra lateral izquierda (Sidebar)
+-------------------------------------- */
+/*Fondo Principal*/
+.sidebar {
+  background-color: #343A40;
+  color: white;
+  min-height: 100vh;
+  padding-top: 1rem;
+}
+
+.sidebar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* --------------------------------------
+  Barra lateral derecha (Right Sidebar)
+-------------------------------------- */
+.right-sidebar {
+  background-color: #f1f1f1;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* --------------------------------------
+  Enlaces del menú lateral
+-------------------------------------- */
+.menu-link {
+  color: #C2C7D0;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  display: block;
+  font-size: 0.95rem;
+}
+
+.menu-link:hover {
+  background-color: #0DCAF0;
+  color: white;
+  font-weight: bold;   
+}
+  
+/* --------------------------------------
+  Pasos del proceso (UI Steps)
+-------------------------------------- */
+.ui-steps,
+.card-border ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  width: 100%;
+}
+
+/* Cada paso */
+.ui-steps-item {
+  flex: 1;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Círculo numerado */
+.ui-steps-number {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #ddd;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Título del paso */
+.ui-steps-title {
+  font-size: 12px;
+}
+
+/* Enlace dentro del paso */
+.ui-steps-item a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 10px;
+}
+
+/* Estados del paso */
+.ui-steps-item.ui-state-highlight .ui-steps-number {
+  background-color: #47cced;
+}
+
+.ui-steps-item.ui-state-default .ui-steps-number {
+  background-color: #ddd;
+}
+
+.ui-steps-item.ui-state-disabled .ui-steps-number {
+  background-color: #ccc;
+}
+
+.ui-steps-item.ui-state-highlight .ui-steps-title,
+.ui-steps-item.ui-state-default .ui-steps-title {
+  font-weight: bold;
+}
+
+.ui-steps-item.ui-state-disabled .ui-steps-title {
+  color: #ccc;
+}
+
+.ui-steps-item.ui-steps-current {
+  font-weight: bold;
+}
+
+/* Línea entre pasos (excepto el último) */
+.ui-steps-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 40%;
+  width: 100%;
+  height: 2px;
+  background-color: #ccc;
+  z-index: -1;
+}
+
+.ui-steps-item:last-child::after {
+  content: none;
+}
+

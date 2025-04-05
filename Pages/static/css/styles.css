@@ -7,3 +7,72 @@
     height: 400px; /* Ajusta la altura según lo que necesites */
     object-fit: cover; /* Evita que la imagen se distorsione */
 }
+
+.ui-steps {
+    display: flex; /* Alineación horizontal */
+    justify-content: space-between; /* Espacio uniforme entre los pasos */
+    padding: 0;
+    margin: 0;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+    list-style-type: none; /* Elimina los puntos de la lista */
+  }
+  
+  .ui-steps-item {
+    position: relative;
+    text-align: center;
+    flex-grow: 1; /* Hace que cada paso ocupe el mismo espacio proporcional */
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    flex-direction: column; /* Alinea el número y el título verticalmente */
+  }
+  
+  .ui-steps-number {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #ddd;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    margin-bottom: 5px; /* Espacio entre el número y el título */
+  }
+  
+  .ui-steps-title {
+    font-size: 12px;
+  }
+  
+  .ui-steps-item.ui-state-highlight .ui-steps-number {
+    background-color: #47cced; /* Color para el paso activo */
+  }
+  
+  .ui-steps-item.ui-state-default .ui-steps-number {
+    background-color: #ddd; /* Color para pasos no activos */
+  }
+  
+  .ui-steps-item.ui-state-disabled .ui-steps-number {
+    background-color: #ccc; /* Color para pasos deshabilitados */
+  }
+  
+  .ui-steps-item.ui-state-highlight .ui-steps-title,
+  .ui-steps-item.ui-state-default .ui-steps-title {
+    font-weight: bold;
+  }
+  
+  .ui-steps-item.ui-state-disabled .ui-steps-title {
+    color: #ccc;
+  }
+  
+  .ui-steps-item.ui-steps-current {
+    font-weight: bold; /* Paso actual con mayor énfasis */
+  }
+  
+  .ui-steps-item a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 10px;
+  }
+
+  
