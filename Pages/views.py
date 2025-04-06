@@ -26,7 +26,7 @@ def especialidades(request):
     return render(request, 'Fespecialidades/especialidades.html')
 
 
-def dashboard(request):
+def dashboard1(request):
     # Dado que para ingresar a esta vista, el usuario ya tiene que haber iniciado sesión,
     paciente_id = request.session.get('paciente_id')  # Obtenemos el id del paciente
 
@@ -36,7 +36,24 @@ def dashboard(request):
     # Pero si hay sesion, obtenemos el paciente activo
     PacienteActivo = Paciente.objects.get(id=paciente_id)
     
-    return render(request, 'dashboard.html', {'PacienteActivo': PacienteActivo})
+    return render(request, 'dashboard1.html', {'PacienteActivo': PacienteActivo})
+
+def dashboard2(request):
+    paciente_id = request.session.get('paciente_id')  # Obtenemos el id del paciente
+    PacienteActivo = Paciente.objects.get(id=paciente_id)
+    return render(request, 'dashboard2.html', {'PacienteActivo': PacienteActivo})
+
+def dashboard3(request):
+    paciente_id = request.session.get('paciente_id')  # Obtenemos el id del paciente
+    PacienteActivo = Paciente.objects.get(id=paciente_id)
+    return render(request, 'dashboard3.html', {'PacienteActivo': PacienteActivo})
+
+
+def dashboard4(request):
+    paciente_id = request.session.get('paciente_id')  # Obtenemos el id del paciente
+    PacienteActivo = Paciente.objects.get(id=paciente_id)
+    return render(request, 'dashboard4.html', {'PacienteActivo': PacienteActivo})
+
 
 def loginReserva(request):
     if request.method == 'POST':
@@ -53,7 +70,7 @@ def loginReserva(request):
                     # Si está hasheada, validamos que exista en la BD con check_password
                     if check_password(contraseña, paciente.contraseña):
                         request.session['paciente_id'] = paciente.id
-                        return redirect('dashboard')
+                        return redirect('dashboard1')
                     else:
                         messages.error(request, "Credenciales incorrectas")
                         return redirect('loginReserva')
@@ -63,7 +80,7 @@ def loginReserva(request):
                     paciente.contraseña = make_password(contraseña)
                     paciente.save()
                     request.session['paciente_id'] = paciente.id
-                    return redirect('dashboard')
+                    return redirect('dashboard1')
                 else:
                     messages.error(request, "Credenciales incorrectas")
                     return redirect('loginReserva')
@@ -75,6 +92,11 @@ def loginReserva(request):
         form = LoginForm()
 
     return render(request, 'loginReserva.html', {'form': form})
+
+def logout(request):
+    # Elimina la sesión del paciente
+    request.session.flush()  # Esto borra toda la sesión
+    return redirect('loginReserva')
 
 def crearCuenta(request):
     return render(request, 'crearCuenta.html')

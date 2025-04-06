@@ -44,7 +44,7 @@
         <i class="fa fa-hospital"></i> Clínica Centenario Peruano Japonesa
       </div>
       <div class="info-box bg-info text-white p-3 mb-2 rounded">
-        <i class="fa fa-user"></i> PAREDES UNTIVEROS, LUCIA (Titular)
+        <i class="fa fa-user"></i> {{ PacienteActivo.nombre}} {{PacienteActivo.apellido_paterno}} {{PacienteActivo.apellido_materno}} (Titular)
       </div>
     </div>
 
@@ -55,8 +55,8 @@
       
       <div class="card bg-info text-white mb-3 p-3 text-center" >
         <img src= "{% static 'perfil2.jpg' %}" class="rounded-circle mx-auto mb-2" width="60">
-        <p class="m-0 fw-bold">LUCIA</p>
-        <small>PAREDES UNTIVEROS</small>
+        <p class="m-0 fw-bold"> {{ PacienteActivo.nombre }} </p>
+        <small>{{ PacienteActivo.apellido_paterno }} {{ PacienteActivo.apellido_materno }}</small>
       </div>
 
       <div class="mb-3">
@@ -74,7 +74,7 @@
       </div>
 
       <div class="text-end">
-        <button class="btn btn-info px-4 text-white ">Continuar</button>
+        <a class="btn btn-info px-4 text-white" href="{% url 'dashboard2' %}">Continuar</a>
       </div>
     </div>
   </div>
